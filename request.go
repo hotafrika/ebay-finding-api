@@ -535,6 +535,42 @@ func (sr *ServiceRequest) WithItemFilterMinPriceWithCurrency(price float64, curr
 	return sr
 }
 
+// WithItemFilterEndTimeFrom adds EndTimeFrom ItemFilter
+// Limits the results to items ending on or after the specified time. Specify a time in the future.
+func (sr *ServiceRequest) WithItemFilterEndTimeFrom(datetime string) *ServiceRequest {
+	sr.updateIFValue(ItemFilterEndTimeFrom, datetime)
+	return sr
+}
+
+// WithItemFilterEndTimeTo adds EndTimeTo ItemFilter
+// Limits the results to items ending on or before the specified time. Specify a time in the future.
+func (sr *ServiceRequest) WithItemFilterEndTimeTo(datetime string) *ServiceRequest {
+	sr.updateIFValue(ItemFilterEndTimeTo, datetime)
+	return sr
+}
+
+// WithItemFilterModTimeFrom adds ModTimeFrom ItemFilter
+// Limits the results to active items whose status has changed since the specified time.
+// Specify a time in the past. Time must be in GMT.
+func (sr *ServiceRequest) WithItemFilterModTimeFrom(datetime string) *ServiceRequest {
+	sr.updateIFValue(ItemFilterModTimeFrom, datetime)
+	return sr
+}
+
+// WithItemFilterStartTimeFrom adds StartTimeFrom ItemFilter
+// Limits the results to items started on or after the specified time. Specify a time in the future.
+func (sr *ServiceRequest) WithItemFilterStartTimeFrom(datetime string) *ServiceRequest {
+	sr.updateIFValue(ItemFilterStartTimeFrom, datetime)
+	return sr
+}
+
+// WithItemFilterStartTimeTo adds StartTimeTo ItemFilter
+// Limits the results to items started on or before the specified time. Specify a time in the future.
+func (sr *ServiceRequest) WithItemFilterStartTimeTo(datetime string) *ServiceRequest {
+	sr.updateIFValue(ItemFilterStartTimeTo, datetime)
+	return sr
+}
+
 func (sr *ServiceRequest) prepareIFMap(ifp ItemFilterParameter) {
 	if _, ok := sr.itemFilterMap[ifp]; !ok {
 		sr.itemFilterMap[ifp] = ServiceItemFilter{Name: string(ifp)}
@@ -558,7 +594,7 @@ func (sr *ServiceRequest) addIFValues(ifp ItemFilterParameter, limit int, values
 		valuesMap[value] = struct{}{}
 	}
 	newValues := make([]string, len(valuesMap))
-	for k, _ := range valuesMap {
+	for k := range valuesMap {
 		newValues = append(newValues, k)
 	}
 	sr.itemFilterMap[ifp] = ServiceItemFilter{
