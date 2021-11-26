@@ -1,6 +1,8 @@
 package ebay_finding_api
 
 import (
+	"encoding/json"
+	"github.com/go-resty/resty/v2"
 	"strconv"
 )
 
@@ -17,6 +19,8 @@ type ServiceRequest struct {
 	//AspectFilter          []ServiceAspectFilter   `json:"aspectFilter,omitempty"` 	// removed
 	//Affiliate				ServiceAffiliate		`json:"affiliate,omitempty"`		// to implement
 	//BuyerPostalCode 		string 					`json:"buyerPostalCode,omitempty"`	// to implement
+
+	client *resty.Client
 }
 
 // ServiceAspectFilter represents AspectFilter
@@ -39,6 +43,41 @@ type ServicePaginationInput struct {
 	EntriesPerPage int `json:"entriesPerPage,omitempty"`
 	PageNumber     int `json:"pageNumber,omitempty"`
 }
+
+func (sr *ServiceRequest) prepare() {
+	if len(sr.itemFilterMap) == 0 {
+		return
+	}
+	var filter []ServiceItemFilter
+	for _, val := range sr.itemFilterMap {
+		filter = append(filter, val)
+	}
+	sr.ItemFilter = filter
+}
+
+func (sr *ServiceRequest) Reload() *ServiceRequest {
+	sr.ItemFilter = nil
+	sr.prepare()
+	return sr
+}
+
+func (sr *ServiceRequest) Get(page int) (ServiceResponse, error){
+	if len(sr.ItemFilter) == 0 {
+		sr.prepare()
+	}
+	sr.PaginationInput.PageNumber = page
+	// TODO client work here
+	return ServiceResponse{}, nil
+}
+
+func (sr *ServiceRequest) First() (ServiceResponse, error){
+	return sr.Get(1)
+}
+
+func (sr *ServiceRequest) RequestBody() ([]byte, error) {
+	return json.MarshalIndent(sr, "", "  ")
+}
+
 
 // WithPageLimit sets page limit to list of items
 //  Min: 1. Max: 100. Default: 100.
