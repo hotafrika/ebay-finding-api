@@ -22,8 +22,8 @@ type Service struct {
 // Default GlobalID: GlobalIDEbayUS (EBAY-US)
 // Default Page Limit: DefaultItemsPerPage (100)
 // Default timeout for requests: 10 seconds
-func NewService(operation EbayOperation, securityAppName string) Service {
-	s := Service{
+func NewService(operation EbayOperation, securityAppName string) *Service {
+	s := &Service{
 		version:         EbayFindingAPIVersion,
 		operation:       string(operation),
 		securityAppName: securityAppName,
@@ -75,8 +75,8 @@ func (s *Service) WithPageLimit(limit int) *Service {
 }
 
 // NewRequest creates new search request
-func (s *Service) NewRequest() ServiceRequest {
-	return ServiceRequest{
+func (s *Service) NewRequest() *ServiceRequest {
+	return &ServiceRequest{
 		itemFilterMap: make(map[ItemFilterParameter]ServiceItemFilter),
 		PaginationInput: ServicePaginationInput{
 			EntriesPerPage: s.pageLimit,

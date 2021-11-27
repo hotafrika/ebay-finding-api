@@ -75,6 +75,9 @@ func (sr *ServiceRequest) First() (ServiceResponse, error){
 }
 
 func (sr *ServiceRequest) RequestBody() ([]byte, error) {
+	if len(sr.ItemFilter) == 0 {
+		sr.prepare()
+	}
 	return json.MarshalIndent(sr, "", "  ")
 }
 
@@ -632,7 +635,7 @@ func (sr *ServiceRequest) addIFValues(ifp ItemFilterParameter, limit int, values
 		}
 		valuesMap[value] = struct{}{}
 	}
-	newValues := make([]string, len(valuesMap))
+	newValues := make([]string, 0, len(valuesMap))
 	for k := range valuesMap {
 		newValues = append(newValues, k)
 	}
