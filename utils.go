@@ -1,4 +1,4 @@
-package ebay_finding_api
+package finding
 
 import "time"
 

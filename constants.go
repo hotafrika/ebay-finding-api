@@ -1,4 +1,4 @@
-package ebay_finding_api
+package finding
 
 const EbayFindingAPIVersion = "1.13.0"
 const EbayRequestDataFormat = "JSON"
@@ -24,6 +24,32 @@ const (
 	OperationGetSearchKeywordsRecommendation EbayOperation = "getSearchKeywordsRecommendation"
 	OperationGetHistograms                   EbayOperation = "getHistograms"
 	OperationGetVersion                      EbayOperation = "getVersion"
+)
+
+type GlobalID string
+
+const (
+	GlobalIDEbayUS    GlobalID = "EBAY-US"
+	GlobalIDEbayENCA  GlobalID = "EBAY-ENCA"
+	GlobalIDEbayGB    GlobalID = "EBAY-GB"
+	GlobalIDEbayAU    GlobalID = "EBAY-AU"
+	GlobalIDEbayAT    GlobalID = "EBAY-AT"
+	GlobalIDEbayFRBE  GlobalID = "EBAY-FRBE"
+	GlobalIDEbayFR    GlobalID = "EBAY-FR"
+	GlobalIDEbayDE    GlobalID = "EBAY-DE"
+	GlobalIDEbayMOTOR GlobalID = "EBAY-MOTOR"
+	GlobalIDEbayIT    GlobalID = "EBAY-IT"
+	GlobalIDEbayNLBE  GlobalID = "EBAY-NLBE"
+	GlobalIDEbayNL    GlobalID = "EBAY-NL"
+	GlobalIDEbayES    GlobalID = "EBAY-ES"
+	GlobalIDEbayCH    GlobalID = "EBAY-CH"
+	GlobalIDEbayHK    GlobalID = "EBAY-HK"
+	GlobalIDEbayIN    GlobalID = "EBAY-IN"
+	GlobalIDEbayIE    GlobalID = "EBAY-IE"
+	GlobalIDEbayMY    GlobalID = "EBAY-MY"
+	GlobalIDEbayFRCA  GlobalID = "EBAY-FRCA"
+	GlobalIDEbayPH    GlobalID = "EBAY-PH"
+	GlobalIDEbaySG    GlobalID = "EBAY-SG"
 )
 
 type OutputSelectorParameter string
@@ -188,4 +214,13 @@ const (
 	ListingTypeFixedPrice     ItemFilterListingTypeOption = "FixedPrice"
 	ListingTypeStoreInventory ItemFilterListingTypeOption = "StoreInventory"
 	ListingTypeAll            ItemFilterListingTypeOption = "All"
+)
+
+type ProductTypeOption string
+
+const (
+	ProductTypeISBN        ProductTypeOption = "ISBN"
+	ProductTypeUPC         ProductTypeOption = "UPC"
+	ProductTypeEAN         ProductTypeOption = "EAN"
+	ProductTypeReferenceID ProductTypeOption = "ReferenceID"
 )
