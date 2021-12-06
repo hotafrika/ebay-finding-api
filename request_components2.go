@@ -4,12 +4,13 @@ import (
 	"strconv"
 )
 
+// RequestItemFilter works with ItemFilter ebay entity
 type RequestItemFilter struct {
 	ItemFilterMap map[ItemFilterParameter]ServiceItemFilter `json:"-"`
 	ItemFilter    []ServiceItemFilter                       `json:"itemFilter,omitempty"`
 }
 
-// ServiceItemFilter represents ItemFilter
+// ServiceItemFilter represents ItemFilter unit
 type ServiceItemFilter struct {
 	Name       string   `json:"name"`
 	Value      []string `json:"value"`
@@ -17,6 +18,7 @@ type ServiceItemFilter struct {
 	ParamValue string   `json:"paramValue,omitempty"`
 }
 
+// Initialize needed to initialize map inside RequestItemFilter
 func (sr *RequestItemFilter) Initialize() {
 	sr.ItemFilterMap = make(map[ItemFilterParameter]ServiceItemFilter)
 }
@@ -26,6 +28,7 @@ func (sr *RequestItemFilter) Reload() {
 	sr.ItemFilter = nil
 }
 
+// prepares ServiceItemFilter from changing ItemFilterMap. Executed every request call or getting req body.
 func (sr *RequestItemFilter) prepare() {
 	if len(sr.ItemFilterMap) == 0 {
 		return
@@ -40,12 +43,14 @@ func (sr *RequestItemFilter) prepare() {
 	sr.ItemFilter = filter
 }
 
+// creates ItemFilter record with just Name
 func (sr *RequestItemFilter) prepareIFMap(ifp ItemFilterParameter) {
 	if _, ok := sr.ItemFilterMap[ifp]; !ok {
 		sr.ItemFilterMap[ifp] = ServiceItemFilter{Name: string(ifp)}
 	}
 }
 
+// adds values to ItemFilter if accepted multiple values in this ItemFilter
 func (sr *RequestItemFilter) addIFValues(ifp ItemFilterParameter, limit int, values ...string) {
 	if len(values) == 0 {
 		return
@@ -72,26 +77,7 @@ func (sr *RequestItemFilter) addIFValues(ifp ItemFilterParameter, limit int, val
 	}
 }
 
-//func (sr *RequestItemFilter) addIFValuesWithParameter(ifp ItemFilterParameter, limit int, paramName string, paramValue string, values ...string) {
-//	if len(values) == 0 {
-//		return
-//	}
-//	sr.prepareIFMap(ItemFilterSeller)
-//	oldValues := sr.ItemFilterMap[ItemFilterSeller].Value
-//	for _, value := range values {
-//		if len(oldValues) >= limit {
-//			break
-//		}
-//		oldValues = append(oldValues, value)
-//	}
-//	sr.ItemFilterMap[ItemFilterSeller] = ServiceItemFilter{
-//		Name:       string(ifp),
-//		Value:      oldValues,
-//		ParamName:  paramName,
-//		ParamValue: paramValue,
-//	}
-//}
-
+// creates of updates value for this single-value ItemFilter
 func (sr *RequestItemFilter) updateIFValue(ifp ItemFilterParameter, value string) {
 	sr.prepareIFMap(ifp)
 	sr.ItemFilterMap[ifp] = ServiceItemFilter{
@@ -100,6 +86,7 @@ func (sr *RequestItemFilter) updateIFValue(ifp ItemFilterParameter, value string
 	}
 }
 
+// creates or updates value with parameters for this single-value ItemFilter
 func (sr *RequestItemFilter) updateIFValueWithParameter(ifp ItemFilterParameter, paramName string, paramValue string, value string) {
 	sr.prepareIFMap(ifp)
 	sr.ItemFilterMap[ifp] = ServiceItemFilter{

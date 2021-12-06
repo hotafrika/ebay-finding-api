@@ -15,6 +15,7 @@ type RequestBasic struct {
 ================================================================
 */
 
+// RequestStandard represents basic part of ebay Finding request
 type RequestStandard struct {
 	PaginationInput ServicePaginationInput `json:"paginationInput,omitempty"`
 	SortOrder       string                 `json:"sortOrder,omitempty"`
@@ -69,6 +70,7 @@ func (sr *RequestStandard) WithSortOrder(order SortOrderParameter) *RequestStand
 ================================================================
 */
 
+// RequestAspectFilter represents AspectFilter part of ebay Finding requests
 type RequestAspectFilter struct {
 	////AspectFilter          []ServiceAspectFilter   `json:"aspectFilter,omitempty"` 	// removed
 }
@@ -84,6 +86,7 @@ type ServiceAspectFilter struct {
 ================================================================
 */
 
+// RequestCategories represents filter by categories in ebay Finding requests
 type RequestCategories struct {
 	CategoryID []string `json:"categoryId,omitempty"`
 }
@@ -124,6 +127,7 @@ func (sr *RequestCategories) WithCategoriesID(categoriesID ...string) *RequestCa
 ================================================================
 */
 
+// RequestDescriptionSearch represents filter by description search in ebay Finding requests
 type RequestDescriptionSearch struct {
 	DescriptionSearch bool `json:"descriptionSearch,omitempty"`
 }
@@ -139,6 +143,7 @@ func (sr *RequestDescriptionSearch) WithDescriptionSearch(ds bool) *RequestDescr
 ================================================================
 */
 
+// RequestKeywords represents filter by keywords in ebay Finding requests
 type RequestKeywords struct {
 	Keywords string `json:"keywords,omitempty"`
 }
@@ -163,6 +168,7 @@ func (sr *RequestKeywords) WithKeywords(key string) *RequestKeywords {
 ================================================================
 */
 
+// RequestOutputSelector represents outputSelector part of ebay Finding requests
 type RequestOutputSelector struct {
 	OutputSelector []string `json:"outputSelector,omitempty"`
 }
@@ -179,6 +185,7 @@ func (sr *RequestOutputSelector) WithOutputSelectors(osps ...OutputSelectorParam
 ================================================================
 */
 
+// RequestProduct represents filter by products in ebay Finding requests
 type RequestProduct struct {
 	ProductID Product `json:"productId"`
 }

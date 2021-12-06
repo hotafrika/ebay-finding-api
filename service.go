@@ -66,19 +66,104 @@ func (s *Service) WithPageLimit(limit int) *Service {
 	return s
 }
 
-// NewAdvancedRequest creates new search req
-func (s *Service) NewAdvancedRequest() *AdvancedRequest {
-	sr := AdvancedRequest{}
-	sr.Initialize()
-	sr.Client = resty.New().
+// creates new http client (resty)
+func (s *Service) newHTTPClient() *resty.Client {
+	return resty.New().
 		SetHeader("X-EBAY-SOA-SERVICE-VERSION", s.version).
-		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsAdvanced)).
+		//SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsAdvanced)).
 		SetHeader("X-EBAY-SOA-SECURITY-APPNAME", s.securityAppName).
 		SetHeader("X-EBAY-SOA-REQUEST-DATA-FORMAT", EbayRequestDataFormat).
 		SetHeader("X-EBAY-SOA-RESPONSE-DATA-FORMAT", EbayResponseDataFormat).
 		SetHeader("X-EBAY-SOA-GLOBAL-ID", s.globalID).
 		SetTimeout(s.timeout)
-	sr.URL = s.endpoint
-	sr.WithPageLimit(s.pageLimit)
-	return &sr
+}
+
+// NewAdvancedRequest creates new AdvancedRequest
+func (s *Service) NewAdvancedRequest() *AdvancedRequest {
+	req := AdvancedRequest{}
+	req.Initialize()
+	//req.Client = resty.New().
+	//	SetHeader("X-EBAY-SOA-SERVICE-VERSION", s.version).
+	//	SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsAdvanced)).
+	//	SetHeader("X-EBAY-SOA-SECURITY-APPNAME", s.securityAppName).
+	//	SetHeader("X-EBAY-SOA-REQUEST-DATA-FORMAT", EbayRequestDataFormat).
+	//	SetHeader("X-EBAY-SOA-RESPONSE-DATA-FORMAT", EbayResponseDataFormat).
+	//	SetHeader("X-EBAY-SOA-GLOBAL-ID", s.globalID).
+	//	SetTimeout(s.timeout)
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsAdvanced))
+	req.URL = s.endpoint
+	req.WithPageLimit(s.pageLimit)
+	return &req
+}
+
+// NewByCategoryRequest creates new ByCategoryRequest
+func (s *Service) NewByCategoryRequest() *ByCategoryRequest {
+	req := ByCategoryRequest{}
+	req.Initialize()
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsByCategory))
+	req.URL = s.endpoint
+	req.WithPageLimit(s.pageLimit)
+	return &req
+}
+
+// NewByKeywordsRequest creates new ByKeywordsRequest
+func (s *Service) NewByKeywordsRequest() *ByKeywordsRequest {
+	req := ByKeywordsRequest{}
+	req.Initialize()
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsByKeywords))
+	req.URL = s.endpoint
+	req.WithPageLimit(s.pageLimit)
+	return &req
+}
+
+// NewByProductRequest creates new ByProductRequest
+func (s *Service) NewByProductRequest() *ByProductRequest {
+	req := ByProductRequest{}
+	req.Initialize()
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsByProduct))
+	req.URL = s.endpoint
+	req.WithPageLimit(s.pageLimit)
+	return &req
+}
+
+// NewInEbayStoresRequest creates new InEbayStoresRequest
+func (s *Service) NewInEbayStoresRequest() *InEbayStoresRequest {
+	req := InEbayStoresRequest{}
+	req.Initialize()
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationFindItemsIneBayStores))
+	req.URL = s.endpoint
+	req.WithPageLimit(s.pageLimit)
+	return &req
+}
+
+// NewGetHistogramsRequest creates new GetHistogramsRequest
+func (s *Service) NewGetHistogramsRequest() *GetHistogramsRequest {
+	req := GetHistogramsRequest{}
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationGetHistograms))
+	req.URL = s.endpoint
+	return &req
+}
+
+// NewGetKeywordsRecommendationRequest creates new GetKeywordsRecommendationRequest
+func (s *Service) NewGetKeywordsRecommendationRequest() *GetKeywordsRecommendationRequest {
+	req := GetKeywordsRecommendationRequest{}
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationGetSearchKeywordsRecommendation))
+	req.URL = s.endpoint
+	return &req
+}
+
+// NewGetVersionRequest creates new GetVersionRequest
+func (s *Service) NewGetVersionRequest() *GetVersionRequest {
+	req := GetVersionRequest{}
+	req.Client = s.newHTTPClient().
+		SetHeader("X-EBAY-SOA-OPERATION-NAME", string(OperationGetVersion))
+	req.URL = s.endpoint
+	return &req
 }

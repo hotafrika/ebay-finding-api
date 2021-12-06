@@ -2,6 +2,7 @@ package finding
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 )
 
@@ -34,7 +35,8 @@ func (sr *AdvancedRequest) GetPage(page int) (AdvancedResponse, error) {
 		return AdvancedResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	ar := AdvancedResponse{}
-	err = json.Unmarshal(res.Body(), &ar)
+	err = xml.Unmarshal(res.Body(), &ar)
+	fmt.Println(string(res.Body()))
 	if err != nil {
 		return AdvancedResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -88,7 +90,7 @@ func (sr *ByCategoryRequest) GetPage(page int) (ByCategoryResponse, error) {
 		return ByCategoryResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	bcr := ByCategoryResponse{}
-	err = json.Unmarshal(res.Body(), &bcr)
+	err = xml.Unmarshal(res.Body(), &bcr)
 	if err != nil {
 		return ByCategoryResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -143,7 +145,7 @@ func (sr *ByKeywordsRequest) GetPage(page int) (ByKeywordsResponse, error) {
 		return ByKeywordsResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	bkr := ByKeywordsResponse{}
-	err = json.Unmarshal(res.Body(), &bkr)
+	err = xml.Unmarshal(res.Body(), &bkr)
 	if err != nil {
 		return ByKeywordsResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -196,7 +198,7 @@ func (sr *ByProductRequest) GetPage(page int) (ByProductResponse, error) {
 		return ByProductResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	bpr := ByProductResponse{}
-	err = json.Unmarshal(res.Body(), &bpr)
+	err = xml.Unmarshal(res.Body(), &bpr)
 	if err != nil {
 		return ByProductResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -258,7 +260,7 @@ func (sr *InEbayStoresRequest) GetPage(page int) (InEbayStoresResponse, error) {
 		return InEbayStoresResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	iesr := InEbayStoresResponse{}
-	err = json.Unmarshal(res.Body(), &iesr)
+	err = xml.Unmarshal(res.Body(), &iesr)
 	if err != nil {
 		return InEbayStoresResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -310,7 +312,7 @@ func (sr *GetHistogramsRequest) Execute() (GetHistogramsResponse, error) {
 		return GetHistogramsResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	ghr := GetHistogramsResponse{}
-	err = json.Unmarshal(res.Body(), &ghr)
+	err = xml.Unmarshal(res.Body(), &ghr)
 	if err != nil {
 		return GetHistogramsResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -349,7 +351,7 @@ func (sr *GetKeywordsRecommendationRequest) Execute() (GetKeywordsRecommendation
 		return GetKeywordsRecommendationResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	gkrr := GetKeywordsRecommendationResponse{}
-	err = json.Unmarshal(res.Body(), &gkrr)
+	err = xml.Unmarshal(res.Body(), &gkrr)
 	if err != nil {
 		return GetKeywordsRecommendationResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -383,7 +385,7 @@ func (sr *GetVersionRequest) Execute() (GetVersionResponse, error) {
 		return GetVersionResponse{}, fmt.Errorf("status code %d: %s", res.StatusCode(), res.String())
 	}
 	gvr := GetVersionResponse{}
-	err = json.Unmarshal(res.Body(), &gvr)
+	err = xml.Unmarshal(res.Body(), &gvr)
 	if err != nil {
 		return GetVersionResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}

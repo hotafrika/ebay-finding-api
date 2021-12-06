@@ -2,7 +2,7 @@ package finding
 
 const EbayFindingAPIVersion = "1.13.0"
 const EbayRequestDataFormat = "JSON"
-const EbayResponseDataFormat = "JSON"
+const EbayResponseDataFormat = "XML"
 const EbayServiceName = "FindingService"
 const DefaultItemsPerPage = 100
 
