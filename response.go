@@ -4,13 +4,13 @@ import "encoding/xml"
 
 // AdvancedResponse represents findItemsAdvancedResponse
 type AdvancedResponse struct {
-	XMLName xml.Name `xml:"findItemsAdvancedResponse"`
-	ResponseAspectHistogramContainer
-	ResponseCategoryHistogramContainer
-	ResponseConditionHistogramContainer
+	//ok XMLName xml.Name `xml:"findItemsAdvancedResponse"`
+	//ResponseAspectHistogramContainer
+	//ResponseCategoryHistogramContainer
+	//ResponseConditionHistogramContainer
 	responseStandard
-	ItemSearchURL string `xml:"itemSearchURL"`
-	ResponsePaginationOutput
+	//ok ItemSearchURL string `xml:"itemSearchURL"`
+	//ok ResponsePaginationOutput
 	ResponseSearchResult
 }
 
