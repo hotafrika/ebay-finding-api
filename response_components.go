@@ -83,20 +83,18 @@ type ResponseSearchResult struct {
 }
 
 type SearchResult struct {
-	SearchResultCount int    `xml:"count,attr"`
-	Items             []Item `xml:"item"`
+	Count int    `xml:"count,attr"`
+	Items []Item `xml:"item"`
 }
 
 type Item struct {
 	Attributes             []ItemAttribute      `xml:"attribute"`
-	AutoPay                bool                 `xml:"autoPay"`
 	CharityID              string               `xml:"charityId"`
 	Condition              Condition            `xml:"condition"`
 	Country                string               `xml:"country"`
 	DiscountPriceInfo      DiscountPriceInfo    `xml:"discountPriceInfo"`
 	Distance               float64              `xml:"distance"`
 	DistanceUnit           string               `xml:"distance,attr"`
-	EbayPlusEnabled        bool                 `xml:"eBayPlusEnabled"`
 	EekStatuses            []string             `xml:"eekStatus"`
 	GalleryInfoContainer   GalleryInfoContainer `xml:"galleryInfoContainer"`
 	GalleryPlusPictureURLs []string             `xml:"galleryPlusPictureURL"`
@@ -111,7 +109,6 @@ type Item struct {
 	PostalCode             string               `xml:"postalCode"`
 	PrimaryCategory        Category             `xml:"primaryCategory"`
 	ProductID              string               `xml:"productId"`
-	ReturnsAccepted        bool                 `xml:"returnsAccepted"`
 	SecondaryCategory      Category             `xml:"secondaryCategory"`
 	SellerInfo             SellerInfo           `xml:"sellerInfo"`
 	SellingStatus          SellingStatus        `xml:"sellingStatus"`
@@ -119,9 +116,12 @@ type Item struct {
 	StoreInfo              StoreInfo            `xml:"storeInfo"`
 	Subtitle               string               `xml:"subtitle"`
 	Title                  string               `xml:"title"`
-	TopRatedListing        bool                 `xml:"topRatedListing"`
 	UnitPrice              UnitPriceInfo        `xml:"unitPrice"`
 	ViewItemURL            string               `xml:"viewItemURL"`
+	AutoPay                bool                 `xml:"autoPay"`
+	EbayPlusEnabled        bool                 `xml:"eBayPlusEnabled"`
+	ReturnsAccepted        bool                 `xml:"returnsAccepted"`
+	TopRatedListing        bool                 `xml:"topRatedListing"`
 }
 
 type ItemAttribute struct {
@@ -135,16 +135,33 @@ type Condition struct {
 }
 
 type DiscountPriceInfo struct {
-	// TODO
+	MinimumAdvertisedPriceExposure string  `xml:"minimumAdvertisedPriceExposure"`
+	OriginalRetailPrice            float64 `xml:"originalRetailPrice"`
+	PricingTreatment               string  `xml:"pricingTreatment"`
+	SoldOffEbay                    bool    `xml:"soldOffEbay"`
+	SoldOnEbay                     bool    `xml:"soldOnEbay"`
 }
 
 type GalleryInfoContainer struct {
 	GalleryURL  string `xml:"galleryURL"`
-	gallerySize string `xml:"gallerySize,attr"`
+	GallerySize string `xml:"gallerySize,attr"`
 }
 
 type ListingInfo struct {
-	// TODO
+	BestOfferEnabled       bool   `xml:"bestOfferEnabled"`
+	BuyItNowAvailable      bool   `xml:"buyItNowAvailable"`
+	Gift                   bool   `xml:"gift"`
+	BuyItNowPrice          Price  `xml:"buyItNowPrice"`
+	ConvertedBuyItNowPrice Price  `xml:"convertedBuyItNowPrice"`
+	EndTime                string `xml:"endTime"`
+	ListingType            string `xml:"listingType"`
+	StartTime              string `xml:"startTime"`
+	WatchCount             int    `xml:"watch_count"`
+}
+
+type Price struct {
+	Value      float64 `xml:",cdata"`
+	CurrencyID string  `xml:"currencyId,attr"`
 }
 
 type Category struct {
@@ -153,19 +170,33 @@ type Category struct {
 }
 
 type SellerInfo struct {
-	// TODO
+	FeedbackRatingStar      string  `xml:"feedbackRatingStar"`
+	FeedbackScore           int64   `xml:"feedbackScore"`
+	PositiveFeedbackPercent float64 `xml:"positiveFeedbackPercent"`
+	SellerUserName          string  `xml:"sellerUserName"`
+	TopRatedSeller          bool    `xml:"topRatedSeller"`
 }
 
 type SellingStatus struct {
-	// TODO
+	BidCount              int    `xml:"bidCount"`
+	ConvertedCurrentPrice Price  `xml:"convertedCurrentPrice"`
+	CurrentPrice          Price  `xml:"currentPrice"`
+	SellingState          string `xml:"sellingState"`
+	TimeLeft              string `xml:"timeLeft"`
 }
 
 type ShippingInfo struct {
-	// TODO
+	ExpeditedShipping       bool     `xml:"expeditedShipping"`
+	OneDayShippingAvailable bool     `xml:"oneDayShippingAvailable"`
+	HandlingTime            int      `xml:"handlingTime"`
+	ShippingServiceCost     Price    `xml:"shippingServiceCost"`
+	ShippingType            string   `xml:"shippingType"`
+	ShipToLocations         []string `xml:"shipToLocations"`
 }
 
 type StoreInfo struct {
-	// TODO
+	StoreName string `xml:"storeName"`
+	StoreURL  string `xml:"storeURL"`
 }
 
 type UnitPriceInfo struct {
