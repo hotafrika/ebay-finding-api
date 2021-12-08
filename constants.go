@@ -9,8 +9,10 @@ const DefaultItemsPerPage = 100
 type EbayEndpoint string
 
 const (
+	// EbayEndpointProduction is a production endpoint for Finding API
 	EbayEndpointProduction = "https://svcs.ebay.com/services/search/FindingService/v1"
-	EbayEndpointSandbox    = "https://svcs.sandbox.ebay.com/services/search/FindingService/v1"
+	// EbayEndpointSandbox is a sandbox endpoint for Finding API
+	EbayEndpointSandbox = "https://svcs.sandbox.ebay.com/services/search/FindingService/v1"
 )
 
 type EbayOperation string

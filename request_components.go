@@ -190,6 +190,7 @@ type RequestProduct struct {
 	ProductID Product `json:"productId"`
 }
 
+// Product ...
 type Product struct {
 	Type string `json:"type"`
 	Text string `json:"#text"`

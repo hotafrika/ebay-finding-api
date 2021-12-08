@@ -6,6 +6,7 @@ import (
 	"fmt"
 )
 
+// AdvancedRequest searches for items on eBay by category or keyword or both.
 type AdvancedRequest struct {
 	RequestCategories
 	RequestKeywords
@@ -16,7 +17,7 @@ type AdvancedRequest struct {
 	RequestStandard
 }
 
-// GetPage executes req for page #
+// GetPage executes AdvancedRequest for page #
 // Valid pages # 1 - 100
 func (sr *AdvancedRequest) GetPage(page int) (AdvancedResponse, error) {
 	if page < 1 {
@@ -43,12 +44,12 @@ func (sr *AdvancedRequest) GetPage(page int) (AdvancedResponse, error) {
 	return ar, nil
 }
 
-// Execute executes req for the first page
+// Execute executes AdvancedRequest for the first page
 func (sr *AdvancedRequest) Execute() (AdvancedResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return req body as JSON
+// GetBody return AdvancedRequest body as JSON
 func (sr *AdvancedRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return json.MarshalIndent(sr, "", "  ")
@@ -63,6 +64,8 @@ func (sr *AdvancedRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// ByCategoryRequest searches for items on eBay using specific eBay category ID numbers
+// (input category ID numbers using categoryId).
 type ByCategoryRequest struct {
 	RequestCategories
 	RequestAspectFilter
@@ -71,7 +74,7 @@ type ByCategoryRequest struct {
 	RequestStandard
 }
 
-// GetPage executes req for page #
+// GetPage executes ByCategoryRequest for page #
 // Valid pages # 1 - 100
 func (sr *ByCategoryRequest) GetPage(page int) (ByCategoryResponse, error) {
 	if page < 1 {
@@ -97,12 +100,12 @@ func (sr *ByCategoryRequest) GetPage(page int) (ByCategoryResponse, error) {
 	return bcr, nil
 }
 
-// Execute executes req for the first page
+// Execute executes ByCategoryRequest for the first page
 func (sr *ByCategoryRequest) Execute() (ByCategoryResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return req body as JSON
+// GetBody return ByCategoryRequest body as JSON
 func (sr *ByCategoryRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return json.MarshalIndent(sr, "", "  ")
@@ -117,6 +120,7 @@ func (sr *ByCategoryRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// ByKeywordsRequest searches for items on eBay by a keyword query (keywords).
 type ByKeywordsRequest struct {
 	RequestKeywords
 	RequestDescriptionSearch
@@ -126,7 +130,7 @@ type ByKeywordsRequest struct {
 	RequestStandard
 }
 
-// GetPage executes req for page #
+// GetPage executes ByKeywordsRequest for page #
 // Valid pages # 1 - 100
 func (sr *ByKeywordsRequest) GetPage(page int) (ByKeywordsResponse, error) {
 	if page < 1 {
@@ -152,12 +156,12 @@ func (sr *ByKeywordsRequest) GetPage(page int) (ByKeywordsResponse, error) {
 	return bkr, nil
 }
 
-// Execute executes req for the first page
+// Execute executes ByKeywordsRequest for the first page
 func (sr *ByKeywordsRequest) Execute() (ByKeywordsResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return req body as JSON
+// GetBody return ByKeywordsRequest body as JSON
 func (sr *ByKeywordsRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return json.MarshalIndent(sr, "", "  ")
@@ -172,6 +176,7 @@ func (sr *ByKeywordsRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// ByProductRequest searches for items on eBay using specific eBay product values.
 type ByProductRequest struct {
 	RequestProduct
 	RequestItemFilter
@@ -179,7 +184,7 @@ type ByProductRequest struct {
 	RequestStandard
 }
 
-// GetPage executes req for page #
+// GetPage executes ByProductRequest for page #
 // Valid pages # 1 - 100
 func (sr *ByProductRequest) GetPage(page int) (ByProductResponse, error) {
 	if page < 1 {
@@ -205,12 +210,12 @@ func (sr *ByProductRequest) GetPage(page int) (ByProductResponse, error) {
 	return bpr, nil
 }
 
-// Execute executes req for the first page
+// Execute executes ByProductRequest for the first page
 func (sr *ByProductRequest) Execute() (ByProductResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return req body as JSON
+// GetBody return ByProductRequest body as JSON
 func (sr *ByProductRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return json.MarshalIndent(sr, "", "  ")
@@ -225,6 +230,9 @@ func (sr *ByProductRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// InEbayStoresRequest searches for items in the eBay store inventories.
+// You can combine storeName with keywords to find specific items,
+// or use keywords without storeName to search for items in all eBay stores.
 type InEbayStoresRequest struct {
 	StoreName string `json:"storeName,omitempty"`
 	RequestAspectFilter
@@ -235,13 +243,13 @@ type InEbayStoresRequest struct {
 	RequestStandard
 }
 
-// WithStoreName adds store's name to req
+// WithStoreName adds store's name to InEbayStoresRequest
 func (sr *InEbayStoresRequest) WithStoreName(name string) *InEbayStoresRequest {
 	sr.StoreName = name
 	return sr
 }
 
-// GetPage executes req for page #
+// GetPage executes InEbayStoresRequest for page #
 // Valid pages # 1 - 100
 func (sr *InEbayStoresRequest) GetPage(page int) (InEbayStoresResponse, error) {
 	if page < 1 {
@@ -267,12 +275,12 @@ func (sr *InEbayStoresRequest) GetPage(page int) (InEbayStoresResponse, error) {
 	return iesr, nil
 }
 
-// Execute executes req for the first page
+// Execute executes InEbayStoresRequest for the first page
 func (sr *InEbayStoresRequest) Execute() (InEbayStoresResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return req body as JSON
+// GetBody return InEbayStoresRequest body as JSON
 func (sr *InEbayStoresRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return json.MarshalIndent(sr, "", "  ")
@@ -287,18 +295,20 @@ func (sr *InEbayStoresRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// GetHistogramsRequest retrieves category and/or aspect
+// histogram information for the eBay category you specify using the categoryId field.
 type GetHistogramsRequest struct {
 	CategoryId string `json:"categoryId"`
 	RequestBasic
 }
 
-// WithCategory adds categoryId to req
+// WithCategory adds categoryId to GetHistogramsRequest
 func (sr *GetHistogramsRequest) WithCategory(category string) *GetHistogramsRequest {
 	sr.CategoryId = category
 	return sr
 }
 
-// Execute executes req
+// Execute executes GetHistogramsRequest
 func (sr *GetHistogramsRequest) Execute() (GetHistogramsResponse, error) {
 	body, err := sr.getBody()
 	if err != nil {
@@ -319,7 +329,7 @@ func (sr *GetHistogramsRequest) Execute() (GetHistogramsResponse, error) {
 	return ghr, nil
 }
 
-// GetBody return req body as JSON
+// GetBody return GetHistogramsRequest body as JSON
 func (sr *GetHistogramsRequest) GetBody() ([]byte, error) {
 	return json.MarshalIndent(sr, "", "  ")
 }
@@ -332,12 +342,14 @@ func (sr *GetHistogramsRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// GetKeywordsRecommendationRequest retrieves commonly used words found in eBay titles,
+// based on the words you supply to the call.
 type GetKeywordsRecommendationRequest struct {
 	RequestKeywords
 	RequestBasic
 }
 
-// Execute executes req
+// Execute executes GetKeywordsRecommendationRequest
 func (sr *GetKeywordsRecommendationRequest) Execute() (GetKeywordsRecommendationResponse, error) {
 	body, err := sr.getBody()
 	if err != nil {
@@ -358,7 +370,7 @@ func (sr *GetKeywordsRecommendationRequest) Execute() (GetKeywordsRecommendation
 	return gkrr, nil
 }
 
-// GetBody return req body as JSON
+// GetBody return GetKeywordsRecommendationRequest body as JSON
 func (sr *GetKeywordsRecommendationRequest) GetBody() ([]byte, error) {
 	return json.MarshalIndent(sr, "", "  ")
 }
@@ -371,11 +383,14 @@ func (sr *GetKeywordsRecommendationRequest) getBody() ([]byte, error) {
 ==============================================================================
 */
 
+// GetVersionRequest returns the current version of the service.
+// This simple call can be used to monitor the service for availability.
+// This call has no input parameters and the response contains only the standard output fields.
 type GetVersionRequest struct {
 	RequestBasic
 }
 
-// Execute executes req
+// Execute executes GetVersionRequest
 func (sr *GetVersionRequest) Execute() (GetVersionResponse, error) {
 	res, err := sr.Client.R().Post(sr.URL)
 	if err != nil {

@@ -1,10 +1,18 @@
 package finding
 
 type responseStandard struct {
-	Ack          string  `xml:"ack"`
+	// Ack indicates whether the error is a fatal error (causing the request to fail) or a less severe
+	// error (a warning) that should be communicated to the user.
+	Ack string `xml:"ack"`
+	// ErrorMessage Information regarding an error or warning that occurred when eBay processed the request.
+	// Not returned when the ack value is Success. Run-time errors are not reported here,
+	// but are instead reported as part of a SOAP fault.
 	ErrorMessage []Error `xml:"errorMessage>error"`
-	Timestamp    string  `xml:"timestamp"`
-	Version      string  `xml:"version"`
+	// Timestamp  represents the date and time when eBay processed the request.
+	Timestamp string `xml:"timestamp"`
+	// Version is the release version that eBay used to process the request. Developer Technical Support
+	// may ask you for the version value if you work with them to troubleshoot issues.
+	Version string `xml:"version"`
 }
 
 type Error struct {
@@ -28,11 +36,28 @@ type Parameter struct {
 */
 
 type ResponseAspectHistogramContainer struct {
-	AspectHistogramContainer AspectHistogramContainer `json:"aspectHistogramContainer" xml:"aspectHistogramContainer"`
+	AspectHistogramContainer AspectHistogramContainer `xml:"aspectHistogramContainer"`
 }
 
+// AspectHistogramContainer is response container for aspect histograms.
 type AspectHistogramContainer struct {
-	// TODO
+	Aspects           []Aspect `xml:"aspect"`
+	DomainDisplayName string   `xml:"domainDisplayName"`
+	DomainName        string   `xml:"domainName"`
+}
+
+// Aspect is a characteristic of an item in a domain.
+type Aspect struct {
+	Name            string           `xml:"name,attr"`
+	ValueHistograms []ValueHistogram `xml:"valueHistogram"`
+}
+
+// ValueHistogram is a container that returns the name of the respective aspect value and the histogram
+//  (the number of available items) that share that item characteristic.
+type ValueHistogram struct {
+	ValueName string `xml:"valueName,attr"`
+	// Count is the number of items that share the characteristic the respective aspect value.
+	Count int64 `xml:"count"`
 }
 
 /*
@@ -43,8 +68,22 @@ type ResponseCategoryHistogramContainer struct {
 	CategoryHistogramContainer CategoryHistogramContainer `json:"categoryHistogramContainer" xml:"categoryHistogramContainer"`
 }
 
+// CategoryHistogramContainer is a response container for category histograms. Only returned when one or
+// more category histograms are returned. A category histogram is not returned if there are no
+// matching items or if the search is restricted to a single leaf category.
 type CategoryHistogramContainer struct {
-	// TODO
+	CategoryHistograms []CategoryHistogram `xml:"categoryHistogram"`
+}
+
+// CategoryHistogram Statistical (item count) information on the categories that contain
+// items that match the search criteria or specified category or categories.
+// A category histogram contains information for up to 10 child categories.
+// Search result total entries may not necessarily match the sum of category histogram item counts.
+type CategoryHistogram struct {
+	CategoryId              string              `xml:"categoryId"`
+	CategoryName            string              `xml:"categoryName"`
+	ChildCategoryHistograms []CategoryHistogram `xml:"childCategoryHistogram"`
+	Count                   int64               `xml:"count"`
 }
 
 /*
@@ -55,8 +94,19 @@ type ResponseConditionHistogramContainer struct {
 	ConditionHistogramContainer ConditionHistogramContainer `json:"conditionHistogramContainer" xml:"conditionHistogramContainer"`
 }
 
+// ConditionHistogramContainer is a response container for condition histograms.
+// Not returned when Condition is specified in itemFilter.
+// That is, only returned when you have not yet narrowed your search based on specific conditions.
 type ConditionHistogramContainer struct {
-	// TODO
+	ConditionHistograms []ConditionHistogram `xml:"conditionHistogram"`
+}
+
+// ConditionHistogram Statistical (item count) information on the condition of items that match
+// the search criteria (or specified category).
+// For example, the number of brand new items that match the query.
+type ConditionHistogram struct {
+	Condition Condition `xml:"condition"`
+	Count     int       `xml:"count"`
 }
 
 /*
@@ -67,6 +117,10 @@ type ResponsePaginationOutput struct {
 	PaginationOutput PaginationOutput `xml:"paginationOutput"`
 }
 
+// PaginationOutput Indicates the pagination of the result set. Child elements indicate the page
+// number that is returned, the maximum number of item listings to return per page,
+// total number of pages that can be returned, and the total number of listings that
+// match the search criteria.
 type PaginationOutput struct {
 	PageNumber     int `xml:"pageNumber"`
 	EntriesPerPage int `xml:"entriesPerPage"`
@@ -82,11 +136,14 @@ type ResponseSearchResult struct {
 	SearchResult SearchResult `xml:"searchResult"`
 }
 
+// SearchResult is a container for the item listings that matched the search criteria.
+// The data for each item is returned in individual containers, if any matches were found.
 type SearchResult struct {
 	Count int    `xml:"count,attr"`
 	Items []Item `xml:"item"`
 }
 
+// Item is a container for the data of a single item that matches the search criteria.
 type Item struct {
 	Attributes             []ItemAttribute      `xml:"attribute"`
 	CharityID              string               `xml:"charityId"`

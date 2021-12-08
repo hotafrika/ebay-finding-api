@@ -4,13 +4,15 @@ import "encoding/xml"
 
 // AdvancedResponse represents findItemsAdvancedResponse
 type AdvancedResponse struct {
-	//ok XMLName xml.Name `xml:"findItemsAdvancedResponse"`
-	//ResponseAspectHistogramContainer
-	//ResponseCategoryHistogramContainer
-	//ResponseConditionHistogramContainer
+	XMLName xml.Name `xml:"findItemsAdvancedResponse"`
+	ResponseAspectHistogramContainer
+	ResponseCategoryHistogramContainer
+	ResponseConditionHistogramContainer
 	responseStandard
-	//ok ItemSearchURL string `xml:"itemSearchURL"`
-	//ok ResponsePaginationOutput
+	// ItemSearchURL is a URL to view the search results on the eBay web site.
+	// The search results on the web site will use the same pagination as the API search results.
+	ItemSearchURL string `xml:"itemSearchURL"`
+	ResponsePaginationOutput
 	ResponseSearchResult
 }
 
@@ -21,6 +23,8 @@ type ByCategoryResponse struct {
 	ResponseCategoryHistogramContainer
 	ResponseConditionHistogramContainer
 	responseStandard
+	// ItemSearchURL is a URL to view the search results on the eBay web site.
+	// The search results on the web site will use the same pagination as the API search results.
 	ItemSearchURL string `xml:"itemSearchURL"`
 	ResponsePaginationOutput
 	ResponseSearchResult
@@ -33,6 +37,8 @@ type ByKeywordsResponse struct {
 	ResponseCategoryHistogramContainer
 	ResponseConditionHistogramContainer
 	responseStandard
+	// ItemSearchURL is a URL to view the search results on the eBay web site.
+	// The search results on the web site will use the same pagination as the API search results.
 	ItemSearchURL string `xml:"itemSearchURL"`
 	PaginationOutput
 	ResponseSearchResult
@@ -44,6 +50,8 @@ type ByProductResponse struct {
 	ResponseAspectHistogramContainer
 	ResponseConditionHistogramContainer
 	responseStandard
+	// ItemSearchURL is a URL to view the search results on the eBay web site.
+	// The search results on the web site will use the same pagination as the API search results.
 	ItemSearchURL string `xml:"itemSearchURL"`
 	ResponsePaginationOutput
 	ResponseSearchResult
@@ -56,6 +64,8 @@ type InEbayStoresResponse struct {
 	ResponseCategoryHistogramContainer
 	ResponseConditionHistogramContainer
 	responseStandard
+	// ItemSearchURL is a URL to view the search results on the eBay web site.
+	// The search results on the web site will use the same pagination as the API search results.
 	ItemSearchURL string `xml:"itemSearchURL"`
 	ResponsePaginationOutput
 	ResponseSearchResult
