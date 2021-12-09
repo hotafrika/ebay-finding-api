@@ -1,3 +1,5 @@
+![example workflow](https://github.com/hotafrika/ebay-finding-api/actions/workflows/autotests.yml/badge.svg)
+
 Golang library implementation of eBay [Finding API](https://developer.ebay.com/Devzone/finding/Concepts/FindingAPIGuide.html)
 
 You can check all the Finding API search options and limitations [here](https://developer.ebay.com/Devzone/finding/CallRef/index.html)
