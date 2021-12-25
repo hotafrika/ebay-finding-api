@@ -145,40 +145,45 @@ type SearchResult struct {
 
 // Item is a container for the data of a single item that matches the search criteria.
 type Item struct {
-	Attributes             []ItemAttribute      `xml:"attribute"`
-	CharityID              string               `xml:"charityId"`
-	Condition              Condition            `xml:"condition"`
-	Country                string               `xml:"country"`
-	DiscountPriceInfo      DiscountPriceInfo    `xml:"discountPriceInfo"`
-	Distance               float64              `xml:"distance"`
-	DistanceUnit           string               `xml:"distance,attr"`
-	EekStatuses            []string             `xml:"eekStatus"`
-	GalleryInfoContainer   GalleryInfoContainer `xml:"galleryInfoContainer"`
-	GalleryPlusPictureURLs []string             `xml:"galleryPlusPictureURL"`
-	GalleryURL             string               `xml:"galleryURL"`
-	GlobalID               string               `xml:"globalId"`
-	ItemID                 string               `xml:"itemId"`
-	ListingInfo            ListingInfo          `xml:"listingInfo"`
-	Location               string               `xml:"location"`
-	PaymentMethods         []string             `xml:"paymentMethod"`
-	PictureURLLarge        string               `xml:"pictureURLLarge"`
-	PictureURLSuperSize    string               `xml:"pictureURLSuperSize"`
-	PostalCode             string               `xml:"postalCode"`
-	PrimaryCategory        Category             `xml:"primaryCategory"`
-	ProductID              string               `xml:"productId"`
-	SecondaryCategory      Category             `xml:"secondaryCategory"`
-	SellerInfo             SellerInfo           `xml:"sellerInfo"`
-	SellingStatus          SellingStatus        `xml:"sellingStatus"`
-	ShippingInfo           ShippingInfo         `xml:"shippingInfo"`
-	StoreInfo              StoreInfo            `xml:"storeInfo"`
-	Subtitle               string               `xml:"subtitle"`
-	Title                  string               `xml:"title"`
-	UnitPrice              UnitPriceInfo        `xml:"unitPrice"`
-	ViewItemURL            string               `xml:"viewItemURL"`
-	AutoPay                bool                 `xml:"autoPay"`
-	EbayPlusEnabled        bool                 `xml:"eBayPlusEnabled"`
-	ReturnsAccepted        bool                 `xml:"returnsAccepted"`
-	TopRatedListing        bool                 `xml:"topRatedListing"`
+	Attributes             []ItemAttribute   `xml:"attribute"`
+	CharityID              string            `xml:"charityId"`
+	Compatibility          string            `xml:"compatibility"`
+	Condition              Condition         `xml:"condition"`
+	Country                string            `xml:"country"`
+	DiscountPriceInfo      DiscountPriceInfo `xml:"discountPriceInfo"`
+	Distance               Distance          `xml:"distance"`
+	EekStatuses            []string          `xml:"eekStatus"`
+	GalleryInfoContainer   []GalleryURL      `xml:"galleryInfoContainer>galleryURL"`
+	GalleryPlusPictureURLs []string          `xml:"galleryPlusPictureURL"`
+	GalleryURL             string            `xml:"galleryURL"`
+	GlobalID               string            `xml:"globalId"`
+	ItemID                 string            `xml:"itemId"`
+	ListingInfo            ListingInfo       `xml:"listingInfo"`
+	Location               string            `xml:"location"`
+	PaymentMethods         []string          `xml:"paymentMethod"`
+	PictureURLLarge        string            `xml:"pictureURLLarge"`
+	PictureURLSuperSize    string            `xml:"pictureURLSuperSize"`
+	PostalCode             string            `xml:"postalCode"`
+	PrimaryCategory        Category          `xml:"primaryCategory"`
+	ProductID              string            `xml:"productId"`
+	SecondaryCategory      Category          `xml:"secondaryCategory"`
+	SellerInfo             SellerInfo        `xml:"sellerInfo"`
+	SellingStatus          SellingStatus     `xml:"sellingStatus"`
+	ShippingInfo           ShippingInfo      `xml:"shippingInfo"`
+	StoreInfo              StoreInfo         `xml:"storeInfo"`
+	Subtitle               string            `xml:"subtitle"`
+	Title                  string            `xml:"title"`
+	UnitPrice              UnitPriceInfo     `xml:"unitPrice"`
+	ViewItemURL            string            `xml:"viewItemURL"`
+	AutoPay                bool              `xml:"autoPay"`
+	EbayPlusEnabled        bool              `xml:"eBayPlusEnabled"`
+	ReturnsAccepted        bool              `xml:"returnsAccepted"`
+	TopRatedListing        bool              `xml:"topRatedListing"`
+}
+
+type Distance struct {
+	Value float64 `xml:",cdata"`
+	Unit  string  `xml:"unit,attr"`
 }
 
 type ItemAttribute struct {
@@ -199,9 +204,9 @@ type DiscountPriceInfo struct {
 	SoldOnEbay                     bool    `xml:"soldOnEbay"`
 }
 
-type GalleryInfoContainer struct {
-	GalleryURL  string `xml:"galleryURL"`
-	GallerySize string `xml:"gallerySize,attr"`
+type GalleryURL struct {
+	URL  string `xml:",cdata"`
+	Size string `xml:"gallerySize,attr"`
 }
 
 type ListingInfo struct {
@@ -213,7 +218,7 @@ type ListingInfo struct {
 	EndTime                string `xml:"endTime"`
 	ListingType            string `xml:"listingType"`
 	StartTime              string `xml:"startTime"`
-	WatchCount             int    `xml:"watch_count"`
+	WatchCount             int    `xml:"watchCount"`
 }
 
 type Price struct {

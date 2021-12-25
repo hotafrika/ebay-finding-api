@@ -19,8 +19,8 @@ type RequestBasic struct {
 type RequestStandard struct {
 	PaginationInput ServicePaginationInput `json:"paginationInput,omitempty"`
 	SortOrder       string                 `json:"sortOrder,omitempty"`
-	//Affiliate				ServiceAffiliate		`json:"affiliate,omitempty"`		// to implement
-	//BuyerPostalCode 		string 					`json:"buyerPostalCode,omitempty"`	// to implement
+	//TODO Affiliate				ServiceAffiliate		`json:"affiliate,omitempty"`		// to implement
+	//TODO BuyerPostalCode 		string 					`json:"buyerPostalCode,omitempty"`	// to implement
 
 	RequestBasic
 }
