@@ -1,7 +1,6 @@
 package finding
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
@@ -19,8 +18,6 @@ func TestToEbayDateTime(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
 			dt, _ := time.Parse("2006/01/02T15/04/05.000", tt.input)
-			fmt.Println(dt)
-			fmt.Println(ToEbayDateTime(dt))
 			if got := ToEbayDateTime(dt); got != tt.want {
 				t.Errorf("ToEbayDateTime() = %v, want %v", got, tt.want)
 			}
