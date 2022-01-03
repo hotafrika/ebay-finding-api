@@ -412,3 +412,8 @@ func (sr *GetVersionRequest) Execute() (GetVersionResponse, error) {
 	}
 	return gvr, nil
 }
+
+// GetBody return GetVersionRequest body as XML
+func (sr *GetVersionRequest) GetBody() ([]byte, error) {
+	return xml.MarshalIndent(sr, "", "  ")
+}

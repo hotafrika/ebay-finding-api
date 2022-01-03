@@ -185,7 +185,7 @@ type RequestKeywords struct {
 // WithKeywords adds keywords for searching
 // Max length: 350. The maximum length for a single word is 98. Min length: 2.
 // Key longer than 350 symbols will be trimmed. Key shorter 2 (0 < n < 2) symbols won't change Keywords field.
-//  Empty string remove Keywords field.
+// Empty string removes Keywords field.
 func (sr *RequestKeywords) WithKeywords(key string) *RequestKeywords {
 	if len(key) > 350 {
 		key = key[:350]
