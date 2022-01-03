@@ -1,0 +1,12 @@
+<findItemsByKeywordsRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <affiliate>
+        <networkId>9</networkId>
+        <trackingId>1********0</trackingId>
+        <customId>k***n</customId>
+    </affiliate>
+    <sortOrder>EndTimeSoonest</sortOrder>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+    <keywords>camalots</keywords>
+</findItemsByKeywordsRequest>

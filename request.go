@@ -1,7 +1,6 @@
 package finding
 
 import (
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 )
@@ -49,7 +48,7 @@ func (sr *AdvancedRequest) Execute() (AdvancedResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return AdvancedRequest body as JSON
+// GetBody return AdvancedRequest body as XML
 func (sr *AdvancedRequest) GetBody() ([]byte, error) {
 	sr.prepare()
 	return xml.MarshalIndent(sr, "", "  ")
@@ -106,15 +105,15 @@ func (sr *ByCategoryRequest) Execute() (ByCategoryResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByCategoryRequest body as JSON
+// GetBody return ByCategoryRequest body as XML
 func (sr *ByCategoryRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByCategoryRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -163,15 +162,15 @@ func (sr *ByKeywordsRequest) Execute() (ByKeywordsResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByKeywordsRequest body as JSON
+// GetBody return ByKeywordsRequest body as XML
 func (sr *ByKeywordsRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByKeywordsRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -218,15 +217,15 @@ func (sr *ByProductRequest) Execute() (ByProductResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByProductRequest body as JSON
+// GetBody return ByProductRequest body as XML
 func (sr *ByProductRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByProductRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -238,7 +237,7 @@ func (sr *ByProductRequest) getBody() ([]byte, error) {
 // or use keywords without storeName to search for items in all eBay stores.
 type InEbayStoresRequest struct {
 	XMLName   xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsIneBayStoresRequest" json:"-"`
-	StoreName string   `json:"storeName,omitempty"`
+	StoreName string   `json:"storeName,omitempty" xml:"storeName,omitempty"`
 	RequestAspectFilter
 	RequestCategories
 	RequestKeywords
@@ -284,15 +283,15 @@ func (sr *InEbayStoresRequest) Execute() (InEbayStoresResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return InEbayStoresRequest body as JSON
+// GetBody return InEbayStoresRequest body as XML
 func (sr *InEbayStoresRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *InEbayStoresRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -303,7 +302,7 @@ func (sr *InEbayStoresRequest) getBody() ([]byte, error) {
 // histogram information for the eBay category you specify using the categoryId field.
 type GetHistogramsRequest struct {
 	XMLName    xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services getHistogramsRequest" json:"-"`
-	CategoryId string   `json:"categoryId"`
+	CategoryId string   `json:"categoryId" xml:"categoryId"`
 	RequestBasic
 }
 
@@ -334,13 +333,13 @@ func (sr *GetHistogramsRequest) Execute() (GetHistogramsResponse, error) {
 	return ghr, nil
 }
 
-// GetBody return GetHistogramsRequest body as JSON
+// GetBody return GetHistogramsRequest body as XML
 func (sr *GetHistogramsRequest) GetBody() ([]byte, error) {
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *GetHistogramsRequest) getBody() ([]byte, error) {
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -376,13 +375,13 @@ func (sr *GetKeywordsRecommendationRequest) Execute() (GetKeywordsRecommendation
 	return gkrr, nil
 }
 
-// GetBody return GetKeywordsRecommendationRequest body as JSON
+// GetBody return GetKeywordsRecommendationRequest body as XML
 func (sr *GetKeywordsRecommendationRequest) GetBody() ([]byte, error) {
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *GetKeywordsRecommendationRequest) getBody() ([]byte, error) {
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*

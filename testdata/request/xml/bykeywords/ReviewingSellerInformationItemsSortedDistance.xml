@@ -1,0 +1,21 @@
+<findItemsByKeywordsRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <keywords>pre-CBS</keywords>
+    <buyerPostalCode>9***0</buyerPostalCode>
+    <sortOrder>DistanceNearest</sortOrder>
+    <outputSelector>SellerInfo</outputSelector>
+    <itemFilter>
+        <name>MaxPrice</name>
+        <value>2500.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <itemFilter>
+        <name>MinPrice</name>
+        <value>1000.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>100</entriesPerPage>
+    </paginationInput>
+</findItemsByKeywordsRequest>

@@ -19,10 +19,27 @@ type RequestBasic struct {
 type RequestStandard struct {
 	PaginationInput ServicePaginationInput `json:"paginationInput,omitempty" xml:"paginationInput,omitempty"`
 	SortOrder       string                 `json:"sortOrder,omitempty" xml:"sortOrder,omitempty"`
-	//TODO Affiliate				ServiceAffiliate		`json:"affiliate,omitempty"`		// to implement
-	//TODO BuyerPostalCode 		string 					`json:"buyerPostalCode,omitempty"`	// to implement
+	Affiliate       *ServiceAffiliate      `json:"affiliate,omitempty" xml:"affiliate,omitempty"`
+	BuyerPostalCode string                 `json:"buyerPostalCode,omitempty" xml:"buyerPostalCode,omitempty"`
 
 	RequestBasic
+}
+
+// ServiceAffiliate represents Affiliate Program
+type ServiceAffiliate struct {
+	NetworkID  string `json:"networkId,omitempty" xml:"networkId,omitempty"`
+	TrackingID string `json:"trackingId,omitempty" xml:"trackingId,omitempty"`
+	CustomID   string `json:"customId,omitempty" xml:"customId,omitempty"`
+}
+
+// WithAffiliate adds ServiceAffiliate
+func (sr *RequestStandard) WithAffiliate(networkID, trackingID, customID string) *RequestStandard {
+	sr.Affiliate = &ServiceAffiliate{
+		NetworkID:  networkID,
+		TrackingID: trackingID,
+		CustomID:   customID,
+	}
+	return sr
 }
 
 // ServicePaginationInput represents PaginationInput
@@ -63,6 +80,12 @@ func (sr *RequestStandard) WithPageNumber(page int) *RequestStandard {
 // Default: BestMatch.
 func (sr *RequestStandard) WithSortOrder(order SortOrderParameter) *RequestStandard {
 	sr.SortOrder = string(order)
+	return sr
+}
+
+// WithBuyerPostalCode adds BuyerPostalCode to requests
+func (sr *RequestStandard) WithBuyerPostalCode(code string) *RequestStandard {
+	sr.BuyerPostalCode = code
 	return sr
 }
 
@@ -203,8 +226,8 @@ type RequestProduct struct {
 
 // Product ...
 type Product struct {
-	Type string `json:"type"`
-	Text string `json:"#text"`
+	Type string `json:"type" xml:"type,attr"`
+	Text string `json:"#text" xml:",cdata"`
 }
 
 // WithProductType adds productId to req
