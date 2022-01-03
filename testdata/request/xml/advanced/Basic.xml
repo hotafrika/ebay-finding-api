@@ -1,0 +1,6 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <keywords>tolkien</keywords>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsAdvancedRequest>

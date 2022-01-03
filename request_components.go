@@ -7,8 +7,8 @@ import (
 
 // RequestBasic is used for requests without pages
 type RequestBasic struct {
-	URL    string        `json:"-"`
-	Client *resty.Client `json:"-"`
+	URL    string        `json:"-" xml:"-"`
+	Client *resty.Client `json:"-" xml:"-"`
 }
 
 /*
@@ -17,8 +17,8 @@ type RequestBasic struct {
 
 // RequestStandard represents basic part of ebay Finding request
 type RequestStandard struct {
-	PaginationInput ServicePaginationInput `json:"paginationInput,omitempty"`
-	SortOrder       string                 `json:"sortOrder,omitempty"`
+	PaginationInput ServicePaginationInput `json:"paginationInput,omitempty" xml:"paginationInput,omitempty"`
+	SortOrder       string                 `json:"sortOrder,omitempty" xml:"sortOrder,omitempty"`
 	//TODO Affiliate				ServiceAffiliate		`json:"affiliate,omitempty"`		// to implement
 	//TODO BuyerPostalCode 		string 					`json:"buyerPostalCode,omitempty"`	// to implement
 
@@ -27,8 +27,8 @@ type RequestStandard struct {
 
 // ServicePaginationInput represents PaginationInput
 type ServicePaginationInput struct {
-	EntriesPerPage int `json:"entriesPerPage,omitempty"`
-	PageNumber     int `json:"pageNumber,omitempty"`
+	EntriesPerPage int `json:"entriesPerPage,omitempty" xml:"entriesPerPage,omitempty"`
+	PageNumber     int `json:"pageNumber,omitempty" xml:"pageNumber,omitempty"`
 }
 
 // WithPageLimit sets page limit to list of items
@@ -72,14 +72,25 @@ func (sr *RequestStandard) WithSortOrder(order SortOrderParameter) *RequestStand
 
 // RequestAspectFilter represents AspectFilter part of ebay Finding requests
 type RequestAspectFilter struct {
-	////AspectFilter          []ServiceAspectFilter   `json:"aspectFilter,omitempty"` 	// removed
+	AspectFilter []ServiceAspectFilter `json:"aspectFilter,omitempty" xml:"aspectFilter,omitempty"` // removed
 }
 
 // ServiceAspectFilter represents AspectFilter
-//  It is NOT implemented yet
 type ServiceAspectFilter struct {
-	AspectName      string   `json:"aspectName"`
-	AspectValueName []string `json:"aspectValueName"`
+	AspectName      string   `json:"aspectName" xml:"aspectName"`
+	AspectValueName []string `json:"aspectValueName" xml:"aspectValueName"`
+}
+
+// WithAspectFilter adds AspectFilter to requests
+func (sr *RequestAspectFilter) WithAspectFilter(aspectName string, aspectValues ...string) *RequestAspectFilter {
+	if len(aspectValues) < 1 {
+		return sr
+	}
+	if aspectName == "" {
+		return sr
+	}
+	sr.AspectFilter = append(sr.AspectFilter, ServiceAspectFilter{aspectName, aspectValues})
+	return sr
 }
 
 /*
@@ -88,7 +99,7 @@ type ServiceAspectFilter struct {
 
 // RequestCategories represents filter by categories in ebay Finding requests
 type RequestCategories struct {
-	CategoryID []string `json:"categoryId,omitempty"`
+	CategoryID []string `json:"categoryId,omitempty" xml:"categoryId,omitempty"`
 }
 
 // WithCategoryIDInt adds category for searching (up to 3 categories)
@@ -129,7 +140,7 @@ func (sr *RequestCategories) WithCategoriesID(categoriesID ...string) *RequestCa
 
 // RequestDescriptionSearch represents filter by description search in ebay Finding requests
 type RequestDescriptionSearch struct {
-	DescriptionSearch bool `json:"descriptionSearch,omitempty"`
+	DescriptionSearch bool `json:"descriptionSearch,omitempty" xml:"descriptionSearch,omitempty"`
 }
 
 // WithDescriptionSearch specifies whether your keyword query should be applied
@@ -145,7 +156,7 @@ func (sr *RequestDescriptionSearch) WithDescriptionSearch(ds bool) *RequestDescr
 
 // RequestKeywords represents filter by keywords in ebay Finding requests
 type RequestKeywords struct {
-	Keywords string `json:"keywords,omitempty"`
+	Keywords string `json:"keywords,omitempty" xml:"keywords,omitempty"`
 }
 
 // WithKeywords adds keywords for searching
@@ -170,7 +181,7 @@ func (sr *RequestKeywords) WithKeywords(key string) *RequestKeywords {
 
 // RequestOutputSelector represents outputSelector part of ebay Finding requests
 type RequestOutputSelector struct {
-	OutputSelector []string `json:"outputSelector,omitempty"`
+	OutputSelector []string `json:"outputSelector,omitempty" xml:"outputSelector,omitempty"`
 }
 
 // WithOutputSelectors adds OutputSelectors
@@ -187,7 +198,7 @@ func (sr *RequestOutputSelector) WithOutputSelectors(osps ...OutputSelectorParam
 
 // RequestProduct represents filter by products in ebay Finding requests
 type RequestProduct struct {
-	ProductID Product `json:"productId"`
+	ProductID Product `json:"productId,omitempty" xml:"productId,omitempty"`
 }
 
 // Product ...

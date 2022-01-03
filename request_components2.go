@@ -6,16 +6,16 @@ import (
 
 // RequestItemFilter works with ItemFilter ebay entity
 type RequestItemFilter struct {
-	ItemFilterMap map[ItemFilterParameter]ServiceItemFilter `json:"-"`
-	ItemFilter    []ServiceItemFilter                       `json:"itemFilter,omitempty"`
+	ItemFilterMap map[ItemFilterParameter]ServiceItemFilter `json:"-" xml:"-"`
+	ItemFilter    []ServiceItemFilter                       `json:"itemFilter,omitempty" xml:"itemFilter,omitempty"`
 }
 
 // ServiceItemFilter represents ItemFilter unit
 type ServiceItemFilter struct {
-	Name       string   `json:"name"`
-	Value      []string `json:"value"`
-	ParamName  string   `json:"paramName,omitempty"`
-	ParamValue string   `json:"paramValue,omitempty"`
+	Name       string   `json:"name" xml:"name"`
+	Value      []string `json:"value" xml:"value"`
+	ParamName  string   `json:"paramName,omitempty" xml:"paramName,omitempty"`
+	ParamValue string   `json:"paramValue,omitempty" xml:"paramValue,omitempty"`
 }
 
 // Initialize needed to initialize map inside RequestItemFilter
@@ -427,6 +427,18 @@ func (sr *RequestItemFilter) WithItemFilterExcludeSeller(sellers ...string) *Req
 // WithItemFilterCondition adds Condition ItemFilter
 // This item condition filter allows a user to filter items based on item condition.
 func (sr *RequestItemFilter) WithItemFilterCondition(conditions ...ItemFilterConditionOption) *RequestItemFilter {
+	var values []string
+	for _, condition := range conditions {
+		values = append(values, string(condition))
+	}
+	// 14 - quantity of available conditions, but let's use 20
+	sr.addIFValues(ItemFilterCondition, 14, values...)
+	return sr
+}
+
+// WithItemFilterConditionName adds Condition ItemFilter
+// This item condition filter allows a user to filter items based on item condition name.
+func (sr *RequestItemFilter) WithItemFilterConditionName(conditions ...ItemFilterConditionNameOption) *RequestItemFilter {
 	var values []string
 	for _, condition := range conditions {
 		values = append(values, string(condition))

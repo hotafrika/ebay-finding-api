@@ -1,0 +1,10 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <itemFilter>
+        <name>Seller</name>
+        <value>e***y</value>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>3</entriesPerPage>
+    </paginationInput>
+    <outputSelector>SellerInfo</outputSelector>
+</findItemsAdvancedRequest>

@@ -1,0 +1,10 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <itemFilter>
+        <name>FeedbackScoreMin</name>
+        <value>200</value>
+    </itemFilter>
+    <keywords>tolkien</keywords>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsAdvancedRequest>
