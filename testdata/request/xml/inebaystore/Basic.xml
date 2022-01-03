@@ -1,0 +1,20 @@
+<findItemsIneBayStoresRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <keywords>harry potter</keywords>
+    <storeName>L**********************e</storeName>
+    <outputSelector>StoreInfo</outputSelector>
+    <itemFilter>
+        <name>MinPrice</name>
+        <value>11.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <itemFilter>
+        <name>MaxPrice</name>
+        <value>25.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>1</entriesPerPage>
+    </paginationInput>
+</findItemsIneBayStoresRequest>

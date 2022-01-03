@@ -1,0 +1,7 @@
+<findItemsByCategoryRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <categoryId>307</categoryId>
+    <outputSelector>AspectHistogram</outputSelector>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsByCategoryRequest>

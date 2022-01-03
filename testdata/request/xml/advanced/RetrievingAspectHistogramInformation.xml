@@ -1,0 +1,15 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <categoryId>31388</categoryId>
+    <outputSelector>AspectHistogram</outputSelector>
+    <itemFilter>
+        <name>Condition</name>
+        <value>Used</value>
+    </itemFilter>
+    <itemFilter>
+        <name>ListingType</name>
+        <value>AuctionWithBIN</value>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsAdvancedRequest>

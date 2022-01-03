@@ -1,0 +1,11 @@
+<findItemsByKeywordsRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <keywords>bagpipes</keywords>
+    <buyerPostalCode>9***5</buyerPostalCode>
+    <itemFilter>
+        <name>MaxDistance</name>
+        <value>25</value>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>100</entriesPerPage>
+    </paginationInput>
+</findItemsByKeywordsRequest>

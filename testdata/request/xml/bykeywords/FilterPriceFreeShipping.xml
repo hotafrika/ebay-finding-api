@@ -1,0 +1,16 @@
+<findItemsByKeywordsRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <keywords>harry potter phoenix</keywords>
+    <itemFilter>
+        <name>MaxPrice</name>
+        <value>10.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <itemFilter>
+        <name>FreeShippingOnly</name>
+        <value>true</value>
+    </itemFilter>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsByKeywordsRequest>

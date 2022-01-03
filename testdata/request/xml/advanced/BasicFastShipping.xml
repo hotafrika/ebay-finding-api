@@ -1,0 +1,14 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <itemFilter>
+        <name>MaxHandlingTime</name>
+        <value>1</value>
+    </itemFilter>
+    <itemFilter>
+        <name>ExpeditedShippingType</name>
+        <value>OneDayShipping</value>
+    </itemFilter>
+    <keywords>iPad</keywords>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsAdvancedRequest>

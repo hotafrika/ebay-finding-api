@@ -1,0 +1,22 @@
+<findItemsAdvancedRequest xmlns="http://www.ebay.com/marketplace/search/v1/services">
+    <categoryId>31388</categoryId>
+    <itemFilter>
+        <name>MaxPrice</name>
+        <value>75.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <itemFilter>
+        <name>MinPrice</name>
+        <value>50.00</value>
+        <paramName>Currency</paramName>
+        <paramValue>USD</paramValue>
+    </itemFilter>
+    <aspectFilter>
+        <aspectName>Megapixels</aspectName>
+        <aspectValueName>5.0 to 5.9 MP</aspectValueName>
+    </aspectFilter>
+    <paginationInput>
+        <entriesPerPage>2</entriesPerPage>
+    </paginationInput>
+</findItemsAdvancedRequest>

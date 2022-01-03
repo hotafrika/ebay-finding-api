@@ -1,10 +1,11 @@
 package finding
 
 const EbayFindingAPIVersion = "1.13.0"
-const EbayRequestDataFormat = "JSON"
+const EbayRequestDataFormat = "XML"
 const EbayResponseDataFormat = "XML"
 const EbayServiceName = "FindingService"
 const DefaultItemsPerPage = 100
+const EbayFindingNamespace = "http://www.ebay.com/marketplace/search/v1/services"
 
 type EbayEndpoint string
 
@@ -205,6 +206,33 @@ const (
 	ConditionGood                 ItemFilterConditionOption = "5000"
 	ConditionAcceptable           ItemFilterConditionOption = "6000"
 	ConditionForPartsOrNotWorking ItemFilterConditionOption = "7000"
+)
+
+type ItemFilterConditionNameOption string
+
+const (
+	ConditionNameNew                  ItemFilterConditionNameOption = "New"
+	ConditionNameNewOther             ItemFilterConditionNameOption = "New other (see details)"
+	ConditionNameNewWithDefects       ItemFilterConditionNameOption = "New with defects"
+	ConditionNameCertifiedRefurbished ItemFilterConditionNameOption = "Certified refurbished"
+	// ConditionNameExcellentRefurbished is used in Cell Phones & Smartphones category (9355)
+	// on the US, Canada, UK, Germany, and Australia
+	ConditionNameExcellentRefurbished ItemFilterConditionNameOption = "Excellent - Refurbished"
+	// ConditionNameVeryGoodRefurbished is used in Cell Phones & Smartphones category (9355)
+	// on the US, Canada, UK, Germany, and Australia
+	ConditionNameVeryGoodRefurbished ItemFilterConditionNameOption = "Very Good - Refurbished"
+	// ConditionNameGoodRefurbished is used in Cell Phones & Smartphones category (9355)
+	// on the US, Canada, UK, Germany, and Australia
+	ConditionNameGoodRefurbished ItemFilterConditionNameOption = "Good - Refurbished"
+	// ConditionNameSellerRefurbished can't be used in Cell Phones & Smartphones category (9355)
+	// on the US, Canada, UK, Germany, and Australia
+	ConditionNameSellerRefurbished    ItemFilterConditionNameOption = "Seller refurbished"
+	ConditionNameLikeNew              ItemFilterConditionNameOption = "Like New"
+	ConditionNameUsed                 ItemFilterConditionNameOption = "Used"
+	ConditionNameVeryGood             ItemFilterConditionNameOption = "Very Good"
+	ConditionNameGood                 ItemFilterConditionNameOption = "Good"
+	ConditionNameAcceptable           ItemFilterConditionNameOption = "Acceptable"
+	ConditionNameForPartsOrNotWorking ItemFilterConditionNameOption = "For parts or not working"
 )
 
 type ItemFilterListingTypeOption string

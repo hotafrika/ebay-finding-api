@@ -1,13 +1,13 @@
 package finding
 
 import (
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 )
 
 // AdvancedRequest searches for items on eBay by category or keyword or both.
 type AdvancedRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsAdvancedRequest" json:"-"`
 	RequestCategories
 	RequestKeywords
 	RequestDescriptionSearch
@@ -37,7 +37,6 @@ func (sr *AdvancedRequest) GetPage(page int) (AdvancedResponse, error) {
 	}
 	ar := AdvancedResponse{}
 	err = xml.Unmarshal(res.Body(), &ar)
-	fmt.Println(string(res.Body()))
 	if err != nil {
 		return AdvancedResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
@@ -49,15 +48,15 @@ func (sr *AdvancedRequest) Execute() (AdvancedResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return AdvancedRequest body as JSON
+// GetBody return AdvancedRequest body as XML
 func (sr *AdvancedRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *AdvancedRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -67,6 +66,7 @@ func (sr *AdvancedRequest) getBody() ([]byte, error) {
 // ByCategoryRequest searches for items on eBay using specific eBay category ID numbers
 // (input category ID numbers using categoryId).
 type ByCategoryRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsByCategoryRequest" json:"-"`
 	RequestCategories
 	RequestAspectFilter
 	RequestItemFilter
@@ -105,15 +105,15 @@ func (sr *ByCategoryRequest) Execute() (ByCategoryResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByCategoryRequest body as JSON
+// GetBody return ByCategoryRequest body as XML
 func (sr *ByCategoryRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByCategoryRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -122,6 +122,7 @@ func (sr *ByCategoryRequest) getBody() ([]byte, error) {
 
 // ByKeywordsRequest searches for items on eBay by a keyword query (keywords).
 type ByKeywordsRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsByKeywordsRequest" json:"-"`
 	RequestKeywords
 	RequestDescriptionSearch
 	RequestAspectFilter
@@ -161,15 +162,15 @@ func (sr *ByKeywordsRequest) Execute() (ByKeywordsResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByKeywordsRequest body as JSON
+// GetBody return ByKeywordsRequest body as XML
 func (sr *ByKeywordsRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByKeywordsRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -178,6 +179,7 @@ func (sr *ByKeywordsRequest) getBody() ([]byte, error) {
 
 // ByProductRequest searches for items on eBay using specific eBay product values.
 type ByProductRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsByProductRequest" json:"-"`
 	RequestProduct
 	RequestItemFilter
 	RequestOutputSelector
@@ -215,15 +217,15 @@ func (sr *ByProductRequest) Execute() (ByProductResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return ByProductRequest body as JSON
+// GetBody return ByProductRequest body as XML
 func (sr *ByProductRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *ByProductRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -234,7 +236,8 @@ func (sr *ByProductRequest) getBody() ([]byte, error) {
 // You can combine storeName with keywords to find specific items,
 // or use keywords without storeName to search for items in all eBay stores.
 type InEbayStoresRequest struct {
-	StoreName string `json:"storeName,omitempty"`
+	XMLName   xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services findItemsIneBayStoresRequest" json:"-"`
+	StoreName string   `json:"storeName,omitempty" xml:"storeName,omitempty"`
 	RequestAspectFilter
 	RequestCategories
 	RequestKeywords
@@ -280,15 +283,15 @@ func (sr *InEbayStoresRequest) Execute() (InEbayStoresResponse, error) {
 	return sr.GetPage(1)
 }
 
-// GetBody return InEbayStoresRequest body as JSON
+// GetBody return InEbayStoresRequest body as XML
 func (sr *InEbayStoresRequest) GetBody() ([]byte, error) {
 	sr.prepare()
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *InEbayStoresRequest) getBody() ([]byte, error) {
 	sr.prepare()
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -298,7 +301,8 @@ func (sr *InEbayStoresRequest) getBody() ([]byte, error) {
 // GetHistogramsRequest retrieves category and/or aspect
 // histogram information for the eBay category you specify using the categoryId field.
 type GetHistogramsRequest struct {
-	CategoryId string `json:"categoryId"`
+	XMLName    xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services getHistogramsRequest" json:"-"`
+	CategoryId string   `json:"categoryId" xml:"categoryId"`
 	RequestBasic
 }
 
@@ -329,13 +333,13 @@ func (sr *GetHistogramsRequest) Execute() (GetHistogramsResponse, error) {
 	return ghr, nil
 }
 
-// GetBody return GetHistogramsRequest body as JSON
+// GetBody return GetHistogramsRequest body as XML
 func (sr *GetHistogramsRequest) GetBody() ([]byte, error) {
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *GetHistogramsRequest) getBody() ([]byte, error) {
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -345,6 +349,7 @@ func (sr *GetHistogramsRequest) getBody() ([]byte, error) {
 // GetKeywordsRecommendationRequest retrieves commonly used words found in eBay titles,
 // based on the words you supply to the call.
 type GetKeywordsRecommendationRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services getSearchKeywordsRecommendationRequest" json:"-"`
 	RequestKeywords
 	RequestBasic
 }
@@ -370,13 +375,13 @@ func (sr *GetKeywordsRecommendationRequest) Execute() (GetKeywordsRecommendation
 	return gkrr, nil
 }
 
-// GetBody return GetKeywordsRecommendationRequest body as JSON
+// GetBody return GetKeywordsRecommendationRequest body as XML
 func (sr *GetKeywordsRecommendationRequest) GetBody() ([]byte, error) {
-	return json.MarshalIndent(sr, "", "  ")
+	return xml.MarshalIndent(sr, "", "  ")
 }
 
 func (sr *GetKeywordsRecommendationRequest) getBody() ([]byte, error) {
-	return json.Marshal(sr)
+	return xml.Marshal(sr)
 }
 
 /*
@@ -387,6 +392,7 @@ func (sr *GetKeywordsRecommendationRequest) getBody() ([]byte, error) {
 // This simple call can be used to monitor the service for availability.
 // This call has no input parameters and the response contains only the standard output fields.
 type GetVersionRequest struct {
+	XMLName xml.Name `xml:"http://www.ebay.com/marketplace/search/v1/services getVersionRequest" json:"-"`
 	RequestBasic
 }
 
@@ -405,4 +411,9 @@ func (sr *GetVersionRequest) Execute() (GetVersionResponse, error) {
 		return GetVersionResponse{}, fmt.Errorf("parsing response body: %w", err)
 	}
 	return gvr, nil
+}
+
+// GetBody return GetVersionRequest body as XML
+func (sr *GetVersionRequest) GetBody() ([]byte, error) {
+	return xml.MarshalIndent(sr, "", "  ")
 }
