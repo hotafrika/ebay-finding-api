@@ -3,7 +3,6 @@ package finding
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"path"
@@ -210,7 +209,7 @@ func TestByCategoryRequest_GetBody(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.filename, func(t *testing.T) {
 			got, err := tt.request.GetBody()
-			fmt.Println(string(got))
+			//fmt.Println(string(got))
 			if !assert.NoError(t, err) {
 				return
 			}
